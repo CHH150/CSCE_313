@@ -1,0 +1,9 @@
+PA1 Report
+
+Timing Experiment:
+I generated test files of size 1 MB, 5 MB, 10 MB, 25 MB, 50 MB, and 75 MB. Each file was transferred using our client/server setup with buffer sizes of 256 bytes and 4096 bytes. For each size, I measured the total transfer time using `/usr/bin/time`.
+
+Results are recorded in transfer_times.csv and plotted in transfer_plot.png. The plot shows that transfer time increases linearly with file size. The run with buffer=256B is slower, while buffer=4096B improves throughput significantly.
+
+Main Bottleneck:
+The main bottleneck is the IPC overhead. Each chunk transfer over a FIFO requires system calls and context switches, which dominate when the buffer size is small. Increasing the buffer size reduces the number of chunks and reduces overhead.
